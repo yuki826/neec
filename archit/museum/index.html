@@ -3,17 +3,204 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <div class="twinmotion-embed-wrapper">
-        <iframe style="height: 100%; width: 100%; min-height: 375px; min-width: 375px;"
-          title="Embedded presentation '美術館'" frameborder="0"
-          allow="fullscreen; gyroscope; accelerometer; magnetometer; execution-while-out-of-viewport; execution-while-not-rendered;"
-          allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"
-          src="https://twinmotion.unrealengine.com/presentation/H5Z4uRytyBS5MA4s?embed"
-        >
-        </iframe>
-       </div>
   </head>
-  <body></body>
+  <body>
+    <div class="parent">
+      <div class="div div1">
+        <div class="front">
+          <div class="heading">MOVIE</div>
+        </div>
+        <div class="movie">
+          <video controls playsinline src="./movie.mp4"></video>
+        </div>
+      </div>
+      <div class="div div2">
+        <div class="front">
+          <div class="heading">3D VIEW</div>
+        </div>
+        <div class="p-view">
+          <div class="view">
+            <div class="popup" id="js-popup">
+            <div class="popup-inner">
+              <div class="popup-btn" id="js-show-popup"><i class="fa fa-expand"></i></div>
+              <div class="close-btn" id="js-close-btn"><i class="fas fa-times"></i></div>
+              <iframe
+                style="height: 100%; width: 100%;"
+                title="Embedded presentation '美術館'"
+                frameborder="0"
+                allow="fullscreen; gyroscope; accelerometer; magnetometer; execution-while-out-of-viewport; execution-while-not-rendered;"
+                allowfullscreen mozallowfullscreen="true"
+                webkitallowfullscreen="true"
+                src="https://twinmotion.unrealengine.com/presentation/H5Z4uRytyBS5MA4s?embed"
+              >
+              </iframe>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="div div3">
+        <div class="front">
+          <div class="heading">PDF</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function popupImage() {
+        var popup = document.getElementById('js-popup');
+        var p_btn = document.getElementById('js-close-btn');
+        var o_btn = document.getElementById('js-show-popup');
+        if(!popup) return;
+        if(!p_btn) return;
+        if(!o_btn) return;
+
+        //var blackBg = document.getElementById('js-black-bg');
+        var closeBtn = document.getElementById('js-close-btn');
+        var showBtn = document.getElementById('js-show-popup');
+
+        //closePopUp(blackBg);
+        closePopUp(closeBtn);
+        closePopUp(showBtn);
+        function closePopUp(elem) {
+          if(!elem) return;
+          elem.addEventListener('click', function() {
+            popup.classList.toggle('is-show');
+            p_btn.classList.toggle('is-btn');
+            o_btn.classList.toggle('is-btn');
+          });
+        }
+      }
+      popupImage();
+    </script>
+    <style>
+      html {
+        height: 100%;
+      }
+      body {
+        background: #262626;
+        color: white;
+        height: 100%;
+        margin: 0px;
+      }
+      .heading {
+        font-size: 1.5em;
+        display: flex;
+	      align-items: center;
+        margin-left: 0.3em;
+      }
+      .parent {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        height: 100%;
+      }
+      .div {
+        background: #333333;
+        margin: 5px;
+      }
+      .div1 {
+        grid-area: 1 / 1 / 2 / 2;
+      }
+      .div2 {
+        grid-area: 1 / 2 / 3 / 3;
+      }
+      .div3 {
+        grid-area: 2 / 1 / 3 / 2;
+      }
+      @media(max-width: 400px){
+        .parent {
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr 0.6fr 1fr;
+          grid-column-gap: 0px;
+          grid-row-gap: 0px;
+          height: 100%;
+        }
+        .div1 { grid-area: 1 / 1 / 2 / 2; }
+        .div2 { grid-area: 3 / 1 / 4 / 2; }
+        .div3 { grid-area: 2 / 1 / 3 / 2; }
+      }
+
+      .popup {
+        background: #333333;
+        
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        
+        transition: .6s;
+    }
+    .popup.is-show {
+      position: fixed;
+    }
+    .popup-inner {
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+    .close-btn {
+      position: absolute;
+      top: 0;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      cursor: pointer;
+      display: none;
+    }
+    .close-btn.is-btn {
+      display: block;
+    }
+    .close-btn i {
+      font-size: 20px;
+      color: rgb(255, 255, 255);
+    }
+    
+    .popup-btn {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .popup-btn.is-btn {
+      display: none;
+    }
+    .popup-btn i {
+      font-size: 20px;
+      color: rgb(255, 255, 255);
+    }
+    .front {
+      height: 10%;
+      width: 100%;
+      vertical-align: middle;
+    }
+    .movie {
+      text-align:center;
+      height: 90%;
+      width: 100%;
+    }
+    .movie video {
+      height: 90%;
+      width: 90%;
+    }
+    .p-view {
+      height: 90%;
+      width: 100%;
+    }
+    .view {
+      margin: 0 auto;
+      height: 90%;
+      width: 90%;
+    }
+    </style>
+  </body>
 </html>
